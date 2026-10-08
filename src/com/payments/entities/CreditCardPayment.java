@@ -1,4 +1,4 @@
-package com.payments.entities;
+package com.payments.exceptions;
 
 import com.payments.enums.PaymentStatus;
 import com.payments.exceptions.InsufficientFundsException;
@@ -17,7 +17,7 @@ public class CreditCardPayment extends Payment implements Refundable {
     // Límite de crédito disponible. Disminuye al aprobar un pago,
     // aumenta al reembolsarlo.
     private double availableLimit;
-    
+
     public CreditCardPayment(String id, double amount,
                              String cardNumber, String holderName,
                              double availableLimit) {
