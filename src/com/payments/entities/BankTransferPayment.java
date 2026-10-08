@@ -1,5 +1,4 @@
 package com.payments.entities;
-package com.tienda.pagos.model;
 
 import com.payments.exceptions.InsufficientFundsException;
 import com.payments.exceptions.InvalidPaymentException;
@@ -9,7 +8,7 @@ public class BankTransferPayment extends Payment {
     private final String bankName;
     private double balance;
 
-    public BankTransferPayment(String id, double amount, String accountNumber, String bankName, double balance)
+    public BankTransferPayment(int id, double amount, String accountNumber, String bankName, double balance)
             throws InvalidPaymentException {
         super(id, amount);
         if (accountNumber == null || accountNumber.length() < 10) {
@@ -23,13 +22,13 @@ public class BankTransferPayment extends Payment {
     @Override
     public void processPayment() throws InsufficientFundsException {
         if (getAmount() > balance) {
-            setStatus(PaymentStatus.REJECTED);
+            setEstado(Estado.REJECTED);
             throw new InsufficientFundsException(
                     String.format("Transferencia bancaria fallida (%s). Saldo: $%.2f | Monto: $%.2f", bankName, balance, getAmount())
             );
         }
         balance -= getAmount();
-        setStatus(PaymentStatus.APPROVED);
+        setEstado(Estado.APPROVED);
     }
 
     @Override
