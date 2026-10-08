@@ -21,4 +21,9 @@ public class PaymentManager {
         }
         return null; // Si no se encuentra, devuelve null
     }
+
+    // Mostrar el total de pagos procesados
+    public int totalPayments() {
+        return payments.size();
+    }
 }//class PaymentManager
