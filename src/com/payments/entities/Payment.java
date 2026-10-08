@@ -14,9 +14,16 @@ public class Payment {
     }
 
     // Getters y setters (encapsulación)
-    public int getId() { return id; }
-    public double getAmount() { return amount; }
-    public boolean isSuccessful() { return successful; }
+    public int getId() {
+        return id;
+    }//get Id
+    public double getAmount() {
+        return amount;
+    }//get Amount
+
+    public boolean isSuccessful() {
+        return successful;
+    }
     protected void setSuccessful(boolean successful) { this.successful = successful; }
 
     // Método abstracto: cada tipo de pago implementará su propia lógica
