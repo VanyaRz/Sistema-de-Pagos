@@ -6,4 +6,20 @@ public class Payment {
     private double amount;       // Monto del pago
     private boolean successful;  // Estado del pago (aprobado o rechazado)
 
+    //constructor
+    public Payment(int id, double amount) {
+        this.id = id;
+        this.amount = amount;
+        this.successful = false; // Por defecto, el pago no está aprobado
+    }
+
+    // Getters y setters (encapsulación)
+    public int getId() { return id; }
+    public double getAmount() { return amount; }
+    public boolean isSuccessful() { return successful; }
+    protected void setSuccessful(boolean successful) { this.successful = successful; }
+
+    // Método abstracto: cada tipo de pago implementará su propia lógica
+    //public abstract void processPayment();
+
 }//class Payment
