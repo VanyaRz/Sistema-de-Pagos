@@ -14,5 +14,11 @@ public class PaymentManager {
         payments.add(payment);
     }
 
-
+    // Buscar un pago por su ID
+    public Payment searchPaymentById(int id) {
+        for (Payment p : payments) {
+            if (p.getId() == id) return p;
+        }
+        return null; // Si no se encuentra, devuelve null
+    }
 }//class PaymentManager
