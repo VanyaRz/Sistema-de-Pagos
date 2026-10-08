@@ -1,15 +1,17 @@
 package com.payments.entities;
 
 import java.util.ArrayList;
+
 // Clase que administra todos los pagos realizados
 public class PaymentManager {
-    private ArrayList<Payment> payments; //Coleccion de pagos
+    private ArrayList<Payment> payments; // Coleccion de pagos
+    
     public PaymentManager() {
-        payments =new ArrayList<>();
+        payments = new ArrayList<>();
     }
 
-    //REgistrar un pago (se procesa y se guarda en la lista)
-    public void registerPayment(Payment payment) {
+    // Registrar un pago (se procesa y se guarda en la lista)
+    public void registerPayment(Payment payment) throws Exception {
         payment.processPayment();
         payments.add(payment);
     }
@@ -26,4 +28,11 @@ public class PaymentManager {
     public int totalPayments() {
         return payments.size();
     }
-}//class PaymentManager
+    
+    // Mostrar todos los pagos
+    public void showPayments() {
+        for (Payment p : payments) {
+            System.out.println(p.toString());
+        }
+    }
+}
