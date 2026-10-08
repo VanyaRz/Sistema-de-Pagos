@@ -1,5 +1,13 @@
+### IntelliJ IDEA (config personal) ###
+.idea/
+*.iml
+*.ipr
+*.iws
+
 ### IntelliJ IDEA ###
 out/
+target/
+build/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .kotlin
