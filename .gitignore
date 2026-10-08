@@ -1,3 +1,9 @@
+### IntelliJ IDEA (config personal) ###
+.idea/
+*.iml
+*.ipr
+*.iws
+
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
