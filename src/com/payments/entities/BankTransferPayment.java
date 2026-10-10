@@ -1,5 +1,6 @@
 package com.payments.entities;
 
+import com.payments.enums.PaymentStatus;
 import com.payments.exceptions.InsufficientFundsException;
 import com.payments.exceptions.InvalidPaymentException;
 
@@ -8,7 +9,7 @@ public class BankTransferPayment extends Payment {
     private final String bankName;
     private double balance;
 
-    public BankTransferPayment(int id, double amount, String accountNumber, String bankName, double balance)
+    public BankTransferPayment(String id, double amount, String accountNumber, String bankName, double balance)
             throws InvalidPaymentException {
         super(id, amount);
         if (accountNumber == null || accountNumber.length() < 10) {
@@ -20,15 +21,17 @@ public class BankTransferPayment extends Payment {
     }
 
     @Override
-    public void processPayment() throws InsufficientFundsException {
-        if (getAmount() > balance) {
-            setEstado(Estado.REJECTED);
-            throw new InsufficientFundsException(
-                    String.format("Transferencia bancaria fallida (%s). Saldo: $%.2f | Monto: $%.2f", bankName, balance, getAmount())
-            );
+    public void processPayment() throws InsufficientFundsException,InvalidPaymentException{
+        if (accountNumber == null || accountNumber.isEmpty()) {
+            throw new InvalidPaymentException("Número de cuenta inválido.");
         }
-        balance -= getAmount();
-        setEstado(Estado.APPROVED);
+        if (amount <= balance) {
+            status = PaymentStatus.APPROVED;
+            balance -= amount;
+        }else{
+            status = PaymentStatus.REJECTED;
+            throw new InsufficientFundsException("Saldo insuficiente en la cuenta bancaria.");
+        }
     }
 
     @Override

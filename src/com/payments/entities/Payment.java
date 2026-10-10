@@ -1,20 +1,17 @@
 package com.payments.entities;
 
-import com.payments.enums.PaymentStatus;
+import com.payments.enums.*;
 import com.payments.exceptions.InsufficientFundsException;
 import com.payments.exceptions.InvalidPaymentException;
 
-//
+/**
+ * Clase abstracta que representa un pago genérico.
+ * Aplica ABSTRACCIÓN y HERENCIA.
+ */
 public abstract class Payment {
-
-    // Identificador único del pago
-    private final String id;
-
-    // Monto del pago.
-    private final double amount;
-
-    // Estado actual del pago.
-    private PaymentStatus status;
+    protected String id;
+    protected double amount;
+    protected PaymentStatus status;
 
     protected Payment(String id, double amount) {
         this.id = id;
@@ -22,6 +19,7 @@ public abstract class Payment {
         this.status = PaymentStatus.PENDING;
     }
 
+    // Método abstracto: cada tipo de pago lo implementa diferente
     public abstract void processPayment()
             throws InsufficientFundsException, InvalidPaymentException;
 
@@ -29,11 +27,9 @@ public abstract class Payment {
     public String getId() {
         return id;
     }
-
     public double getAmount() {
         return amount;
     }
-
     public PaymentStatus getStatus() {
         return status;
     }
@@ -46,6 +42,6 @@ public abstract class Payment {
      // Representación textual del pago, usada al imprimir en consola.
     @Override
     public String toString() {
-        return id + " | $" + amount + " | " + status;
+        return "Pago ID: " + id + ", Monto: " + amount + ", Estado: " + status;
     }
 }

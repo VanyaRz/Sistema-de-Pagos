@@ -1,7 +1,7 @@
 package com.payments;
 
 import com.payments.entities.*;
-import com.payments.exceptions.InsufficientFundsException;
+import com.payments.exceptions.*;
 
 public class PaymentsApp {
     public static void main(String[] args) {
@@ -10,21 +10,24 @@ public class PaymentsApp {
 
         try {
             // Crear diferentes tipos de pagos
-            Payment p1 = new CreditCardPayment(1, 1000, "1234-5678-9012", "Juan Perez", 5000);
+            Payment p1 = new CreditCardPayment("1", 1000, "1234-5678-9012", "Juan Perez", 5000);
+            p1.processPayment();
             manager.registerPayment(p1);
         } catch (Exception e) {
             System.out.println("Error procesando pago 1: " + e.getMessage());
         }
 
         try {
-            Payment p2 = new PayPalPayment(2, 850, "cliente@email.com", 1000);
+            Payment p2 = new PayPalPayment("2", 850, "cliente@email.com", 1000);
+            p2.processPayment();//procesa el pago
             manager.registerPayment(p2);
         } catch (Exception e) {
             System.out.println("Error procesando pago 2: " + e.getMessage());
         }
 
         try {
-            Payment p3 = new BankTransferPayment(3, 2000, "987654321", "Banco XYZ", 1500);
+            Payment p3 = new BankTransferPayment("3", 2000, "987654321", "Banco XYZ", 1500);
+            p3.processPayment();
             manager.registerPayment(p3);
         } catch (Exception e) {
             System.out.println("Error procesando pago 3: " + e.getMessage());
@@ -32,7 +35,8 @@ public class PaymentsApp {
 
         try {
             // Un pago fallido por fondos insuficientes
-            PayPalPayment pagoFallido = new PayPalPayment(4, 300, "usuario@mail.com", 200);
+            PayPalPayment pagoFallido = new PayPalPayment("4", 300, "usuario@mail.com", 200);
+            pagoFallido.processPayment();
             manager.registerPayment(pagoFallido);
         } catch (Exception e) {
             System.out.println("Error procesando pago 4: " + e.getMessage());
@@ -46,7 +50,7 @@ public class PaymentsApp {
         System.out.println("\nTotal de pagos: " + manager.totalPayments());
         
         // Buscar un pago por ID
-        Payment buscado = manager.searchPaymentById(2);
+        Payment buscado = manager.findPaymentById("2");
         if (buscado != null) {
             System.out.println("Pago encontrado: " + buscado.toString());
         }

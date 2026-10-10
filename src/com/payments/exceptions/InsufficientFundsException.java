@@ -1,6 +1,7 @@
 package com.payments.exceptions;
 
-public class InsufficientFundsException extends Exception {// fondos insuficientes
+// clase para fondos insuficientes
+public class InsufficientFundsException extends Exception {
 
     // ============ CONSTRUCTOR ============
     public InsufficientFundsException(String mensaje) {

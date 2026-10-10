@@ -1,4 +1,4 @@
-package com.payments.exceptions;
+package com.payments.entities;
 
 import com.payments.enums.PaymentStatus;
 import com.payments.exceptions.InsufficientFundsException;
@@ -6,14 +6,12 @@ import com.payments.exceptions.InvalidPaymentException;
 import com.payments.interfaces.Refundable;
 
 
+
 public class CreditCardPayment extends Payment implements Refundable {
 
     // Número de tarjeta del cliente (16 dígitos, datos ficticios)
     private final String cardNumber;
-
-    // Nombre del titular de la tarjeta
-    private final String holderName;
-
+    private final String holderName;// Nombre del titular de la tarjeta
     // Límite de crédito disponible. Disminuye al aprobar un pago,
     // aumenta al reembolsarlo.
     private double availableLimit;
@@ -24,17 +22,16 @@ public class CreditCardPayment extends Payment implements Refundable {
         // Llamada al constructor de la clase padre (Payment).
         // Obligatoria porque Payment no tiene constructor sin argumentos.
         super(id, amount);
-
         this.cardNumber = cardNumber;
         this.holderName = holderName;
         this.availableLimit = availableLimit;
     }
 
     @Override
-    public void processPayment() throws InsufficientFundsException {
+    public void processPayment() throws InsufficientFundsException{
 
         // Validación: el monto no puede superar el límite disponible.
-        if (getAmount() > availableLimit) {
+        if (amount > availableLimit) {
             // Marcamos el pago como rechazado ANTES de lanzar la excepción,
             // para que quede registro del intento fallido.
             setStatus(PaymentStatus.REJECTED);
@@ -53,20 +50,21 @@ public class CreditCardPayment extends Payment implements Refundable {
     }
 
     @Override
-    public void refund() throws InvalidPaymentException {
+    public void refund() {
 
         // Validación: solo se reembolsan pagos que fueron aprobados.
         if (getStatus() != PaymentStatus.APPROVED) {
-            throw new InvalidPaymentException(
-                    "Solo se reembolsan pagos aprobados. Estado actual: "
-                            + getStatus());
+            // Manejo interno de la excepción en lugar de throws
+            System.out.println("Error: Solo se reembolsan pagos aprobados. Estado actual: "
+                    + getStatus());
+            return;
         }
 
         // Restauramos el monto al límite disponible.
         availableLimit += getAmount();
-
         // Marcamos el pago como reembolsado.
         setStatus(PaymentStatus.REFUNDED);
+        System.out.println("Reembolso realizado en tarjeta de crédito.");
     }
 
     public double getAvailableLimit() {

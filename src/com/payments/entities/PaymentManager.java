@@ -11,28 +11,30 @@ public class PaymentManager {
     }
 
     // Registrar un pago (se procesa y se guarda en la lista)
-    public void registerPayment(Payment payment) throws Exception {
-        payment.processPayment();
+    public void registerPayment(Payment payment) {
         payments.add(payment);
     }
 
-    // Buscar un pago por su ID
-    public Payment searchPaymentById(int id) {
-        for (Payment p : payments) {
-            if (p.getId() == id) return p;
-        }
-        return null; // Si no se encuentra, devuelve null
-    }
-
-    // Mostrar el total de pagos procesados
-    public int totalPayments() {
-        return payments.size();
-    }
-    
     // Mostrar todos los pagos
     public void showPayments() {
         for (Payment p : payments) {
             System.out.println(p.toString());
         }
     }
+
+    // Buscar un pago por su ID
+    public Payment findPaymentById(String id) {
+        for (Payment p : payments) {
+            if (p.getId().equals(id)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    // Mostrar el total de pagos procesados
+    public int totalPayments() {
+        return payments.size();
+    }
+
 }
