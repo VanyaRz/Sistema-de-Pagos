@@ -9,11 +9,11 @@ import com.payments.exceptions.InvalidPaymentException;
  * Aplica ABSTRACCIÓN y HERENCIA.
  */
 public abstract class Payment {
-    protected String id;
+    protected int id;
     protected double amount;
     protected PaymentStatus status;
 
-    protected Payment(String id, double amount) {
+    protected Payment(int id, double amount) {
         this.id = id;
         this.amount = amount;
         this.status = PaymentStatus.PENDING;
@@ -24,7 +24,7 @@ public abstract class Payment {
             throws InsufficientFundsException, InvalidPaymentException;
 
 
-    public String getId() {
+    public int getId() {
         return id;
     }
     public double getAmount() {
@@ -33,7 +33,6 @@ public abstract class Payment {
     public PaymentStatus getStatus() {
         return status;
     }
-
     protected void setStatus(PaymentStatus status) {
         this.status = status;
     }

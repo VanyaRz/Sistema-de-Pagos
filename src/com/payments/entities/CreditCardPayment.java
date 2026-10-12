@@ -16,7 +16,7 @@ public class CreditCardPayment extends Payment implements Refundable {
     // aumenta al reembolsarlo.
     private double availableLimit;
 
-    public CreditCardPayment(String id, double amount,
+    public CreditCardPayment(int id, double amount,
                              String cardNumber, String holderName,
                              double availableLimit) {
         // Llamada al constructor de la clase padre (Payment).
