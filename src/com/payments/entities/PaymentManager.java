@@ -23,9 +23,9 @@ public class PaymentManager {
     }
 
     // Buscar un pago por su ID
-    public Payment findPaymentById(String id) {
+    public Payment findPaymentById(int id) {
         for (Payment p : payments) {
-            if (p.getId().equals(id)) {
+            if (p.getId() == id) {
                 return p;
             }
         }

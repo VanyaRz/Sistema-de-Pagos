@@ -9,7 +9,7 @@ public class BankTransferPayment extends Payment {
     private final String bankName;
     private double balance;
 
-    public BankTransferPayment(String id, double amount, String accountNumber, String bankName, double balance)
+    public BankTransferPayment(int id, double amount, String accountNumber, String bankName, double balance)
             throws InvalidPaymentException {
         super(id, amount);
         if (accountNumber == null || accountNumber.length() < 10) {

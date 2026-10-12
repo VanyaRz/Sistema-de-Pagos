@@ -10,7 +10,7 @@ public class PayPalPayment extends Payment implements Refundable {
     private String email;
     private double balance;
 
-    public PayPalPayment(String id, double amount, String email, double balance) throws InvalidPaymentException {
+    public PayPalPayment(int id, double amount, String email, double balance) throws InvalidPaymentException {
         super(id, amount);
         if (email == null || !email.contains("@")) {
             throw new InvalidPaymentException("El correo electrónico de PayPal es inválido.");
